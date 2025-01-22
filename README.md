@@ -4,10 +4,18 @@ Este repositório contém uma série de questões sobre processamento digital de
 
 # Foram usados:
 Python
+----
 opencv == 3.X
+-----
 scikit-learn
+-----
 numpy
+-----
 numba
+-----
 pandas
+-----
 scikit-image
+-----
 matplotlib
+-----

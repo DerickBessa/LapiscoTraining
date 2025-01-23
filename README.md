@@ -35,12 +35,12 @@ Certifique-se de ter o **Python** instalado em sua máquina. Além disso, você 
 
 ## Instruções de instalação  
 
-1. Certifique-se de que o Python está instalado em sua máquina. Você pode baixá-lo [aqui](https://www.python.org/downloads/).  
+**1**. Certifique-se de que o **Python** está instalado em sua máquina. Você pode baixá-lo [aqui](https://www.python.org/downloads/).  
 
-2. Clone este repositório.  
+**2**. **Clone** este repositório.  
 
-3. Instale as bibliotecas necessárias com o pip.
+**3**. **Instale** as bibliotecas necessárias com o pip.
 
-4. Abra a pasta da questão que deseja e siga as instruções no enunciado para rodar o script
+**4**. Abra a pasta da questão que deseja e siga as **instruções** no enunciado para rodar o script
 
-E fim!
+**E fim!!**

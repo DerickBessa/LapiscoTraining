@@ -1,3 +1,3 @@
-# Questão 1
+# Questão 2
 
-- Abrir uma imagem colorida, visualizar e salvar.
+-Abrir uma imagem colorida, transformar em níveis de cinza, visualizar e salvar imagem gerada.

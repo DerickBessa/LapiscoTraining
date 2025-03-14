@@ -13,7 +13,7 @@ R , G , B = cv2.split(img_rgb)
 
 
 
-R_img = cv2.merge([np.zeros_like(R), np.zeros_like(G), R])
+R_img = cv2.merge([np.zeros_like(B), np.zeros_like(G), R])
 G_img = cv2.merge([np.zeros_like(B), G, np.zeros_like(R)])
 B_img = cv2.merge([B, np.zeros_like(G), np.zeros_like(B)])
 

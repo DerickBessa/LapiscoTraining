@@ -16,9 +16,9 @@ else:
     
     static_matrix = np.zeros_like(img_gray)
 
-    #i will use the Sobels mask in fuction, but basically is this:
+    # first way, basically is this:
 
-    sobel_X = np.array([[-1 , 0 , +1],
+    '''sobel_X = np.array([[-1 , 0 , +1],
                                 [-2 , 0 , +2],
                                 [-1 , 0 , +1]])
      
@@ -36,10 +36,10 @@ for i in range(1, img_gray.shape[0] - 1):
 
         gr = np.sqrt(gx**2 + gy**2)
 
-        static_matrix[i, j] = np.uint8(np.clip(gr, 0, 255))
+        static_matrix[i, j] = np.uint8(np.clip(gr, 0, 255))'''
      
                     
-    ''' i will make now in faster way
+     #i will make now in faster way   - second way
 
     gx = cv2.Sobel(img_gray, cv2.CV_64F, 1, 0 , ksize=3) ### this function do the convolution applying the sobels mask
     gy = cv2.Sobel(img_gray, cv2.CV_64F, 0 , 1 , ksize=3)
@@ -50,7 +50,7 @@ for i in range(1, img_gray.shape[0] - 1):
 
     static_matrix = np.uint8(np.clip(gr, 0 , 255)) ### i did this, 'cause, when u get the CV_64F format you maybe work with values upper and lower than 255 and 0. 
             ## and with this im normalizing to [0 , 255]
-'''
+
            
            
 cv2.imshow("input image with sobels mask", static_matrix)

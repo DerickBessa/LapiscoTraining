@@ -35,7 +35,6 @@ else:
 
         content = file.read()
 
-        print("R  G  B")
         print(content)
 
 cv2.waitKey(0)

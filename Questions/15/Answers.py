@@ -16,7 +16,7 @@ while True:
     ret , frame = cap.read()
 
     gray_scale_frame = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)
-    gray_scale_frame_canny = cv2.Canny(gray_scale_frame, threshold1 = 30 , threshold2= 100)
+    gray_scale_frame_canny = cv2.Canny(gray_scale_frame, threshold1 = 40 , threshold2= 100)
 
     cv2.imshow("Video", frame)
 

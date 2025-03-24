@@ -42,13 +42,17 @@ else:
     plt.axis('off')
     plt.imshow(img_eq, cmap='gray')
     
+    #plt.plot example
+
     plt.subplot(2, 2, 3) 
     plt.plot(original_hist, color='black')
-    plt.title('Gray Image Histogram')
+    plt.title('Original Gray Image Histogram')
     plt.xlim(0,256)
     plt.xlabel('Pixels intensity')
     plt.ylabel('Pixels count')
-    
+
+    #plt.hist example
+
     plt.subplot(2, 2, 4) 
     plt.hist(img_eq.ravel(),  256 , [0,256], color='black')
     plt.title('Equalizated Image Histogram')

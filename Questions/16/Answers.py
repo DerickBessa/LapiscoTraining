@@ -17,7 +17,8 @@ else:
 
     # now Equalizating
 
-    img_eq = cv2.equalizeHist(img_gray)
+    img_eq = cv2.equalizeHist(img_gray) 
+    cv2.imwrite("Equalizated_image.jpg", img_eq)
 
     # let's calc the histograms
 

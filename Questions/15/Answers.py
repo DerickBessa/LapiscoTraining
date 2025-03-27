@@ -16,9 +16,9 @@ while True:
     ret , frame = cap.read()
 
     gray_scale_frame = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)
-    gray_scale_frame_canny = cv2.Canny(gray_scale_frame, threshold1 = 40 , threshold2= 100)
+    gray_scale_frame_canny = cv2.Canny(gray_scale_frame, threshold1 = 10 , threshold2= 100)
 
-    cv2.imshow("Video", frame)
+    cv2.imshow("Video", gray_scale_frame_canny)
 
     if cv2.waitKey(1) & 0xFF == ord('c'):
         filename = f"frame_capture_{frame_count}.jpg"

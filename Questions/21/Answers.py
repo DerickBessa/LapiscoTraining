@@ -1,52 +1,91 @@
 import cv2
 import numpy as np
-import sys
-sys.path.append('/home/derickbessa/LapiscoTraining/Questions')
-from Twenty.functiongr import grown_region
+from numba import njit
+
+seed = (0, 0)
 
 
+@njit
+def region_growing(image, seed=None):
 
-seed = None
+    # Get the rows and columns of the image
+    rows, cols = image.shape[:2]
 
-def mouse_callback(event, x , y , flags, param):
+    # Get the seed point
+    xc, yc = seed
 
-    global seed
+    # Create a matrix that will contain the segmented region
+    segmented = np.zeros_like(image)
 
+    # Mark the seed point in the image
+    segmented[xc, yc] = 255
+
+    # Loop through the image until the region stop growing
+    current_found = 0
+    previous_points = 1
+
+    while previous_points != current_found:
+
+        previous_points = current_found
+        current_found = 0
+        for row in range(rows):
+            for col in range(cols):
+                # Verify if we reach the ROI and search through the neighborhood to see if the pixel is of the same
+                # object, then if the pixel is part of the object put them in the segmented image
+                if segmented[row, col] == 255:
+                    if 130 < image[row - 1, col - 1] < 230:
+                        segmented[row - 1, col - 1] = 255
+                        current_found += 1
+                    if 130 < image[row - 1, col] < 230:
+                        segmented[row - 1, col] = 255
+                        current_found += 1
+                    if 130 < image[row - 1, col + 1] < 230:
+                        segmented[row - 1, col + 1] = 255
+                        current_found += 1
+                    if 130 < image[row, col - 1] < 230:
+                        segmented[row, col - 1] = 255
+                        current_found += 1
+                    if 130 < image[row, col + 1] < 230:
+                        segmented[row, col + 1] = 255
+                        current_found += 1
+                    if 130 < image[row + 1, col - 1] < 230:
+                        segmented[row + 1, col - 1] = 255
+                        current_found += 1
+                    if 130 < image[row + 1, col] < 230:
+                        segmented[row + 1, col] = 255
+                        current_found += 1
+                    if 130 < image[row + 1, col + 1] < 230:
+                        segmented[row + 1, col + 1] = 255
+                        current_found += 1
+
+    return segmented
+
+
+def mouse_event(event, x, y, flags, param):
+    # Verify if the left button is pressed
     if event == cv2.EVENT_LBUTTONDOWN:
-        print(f'the new seed is setted to ({x} , {y})')
-        seed = (x , y)
+        global seed
+
+        # Update the seed point
+        seed = (y, x)
 
 
+if __name__ == '__main__':
+    # Read a rgb image
+    image = cv2.imread('image.jpg')
 
-if __name__ == '__main__':  
+    # Transform to grayscale
+    grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
+    # Create a window, show the original image and wait for the click
+    cv2.namedWindow('Original Image', 1)
+    cv2.imshow('Original Image', grayscale_image)
+    cv2.setMouseCallback('Original Image', mouse_event)
+    cv2.waitKey(0)
 
-    
-    img = cv2.imread("image222.jpg", cv2.IMREAD_COLOR)
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite("grayscale.jpg", img_gray)
+    # Apply the region growing algorithm
+    segmented_image = region_growing(grayscale_image, seed)
 
-    cv2.namedWindow('Original image', 1)
-    cv2.imshow("Original image", img_gray)
-    cv2.setMouseCallback("Original image", mouse_callback)
-
-    finish = 0
-
-    while True:
-
-        
-
-        if cv2.waitKey(1) & 0xFF == ord('c'):
-            if seed is not None:
-
-                growing_image = grown_region(img_gray, seed)
-
-                cv2.imshow("Segmented image", growing_image)
-                cv2.waitKey(0)
-                cv2.destroyAllWindows
-                continue
-        elif cv2.waitKey(1) & 0xFF == ord('q'):
-            print("finalizando...")
-            break
-        
-cv2.destroyAllWindows()
+    # Show the result
+    cv2.imshow('Segmented image', segmented_image)
+    cv2.waitKey(0)
